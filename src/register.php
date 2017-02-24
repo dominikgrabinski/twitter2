@@ -4,13 +4,25 @@ require_once 'User.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(!empty($_POST)){
+        
+       // $emailToCheck = $_POST['email'];
+        $sql = mysqli_query($connection, "SELECT email FROM Users WHERE email = '".$_POST['email']."'"); 
+        
+        if(mysqli_num_rows($sql) > 0){
+            echo "Mail już istnieje";
+           header('refresh:2;url=register.php');
+        }else{
+        
         $newUser = new User();
         $newUser->setUserName($_POST['userName']);
         $newUser->setEmail($_POST['email']);
         $newUser->setHashedPassword($_POST['hashedPassword']);
         $newUser->saveToDB($connection);
+        echo "Zarejestrowano";
+        header('refresh:2; url=login.php');
+        }
     }
-}
+}   
 ?>
 <html>
     <head>

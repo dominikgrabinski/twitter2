@@ -18,8 +18,13 @@ require 'config.php';
     <body>
         
   <ul>
-  <li><a>Witaj! "Nazwa użytkownika"</a></li>
-  <li><a href="news.asp">Twoje Tweety</a></li>
+  <li><a>Witaj! 
+        <?php
+        session_start();       
+        echo $_SESSION['userName'];       
+        ?> 
+          </a></li>
+          <li><a href="UserMainPage.php">Twoje Tweety</a></li>
   <li><a href="contact.asp">Contact</a></li>
   <li><a href="about.asp">About</a></li>
   <li><a href="logout.php">Wyloguj</a></li>

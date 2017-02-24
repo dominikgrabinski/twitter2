@@ -35,8 +35,8 @@ class User {
     }
     public function setHashedPassword($newPassword){
     $hashedNewPassword =
-    password_hash($newPassword, PASSWORD_BCRYPT);
-    $this->hashedPassword = $hashedNewPassword;
+    hash('sha256',$newPassword);
+    return $this->hashedPassword = $hashedNewPassword;
     }
     
     public function getPassword(){

@@ -2,7 +2,7 @@
 require 'User.php';
 require 'Tweet.php';
 require 'config.php';
-
+session_start();
 
 
 ?>
@@ -20,7 +20,7 @@ require 'config.php';
         
         <table border="1px" style="width:100%">
  <?php           
-      $allTweets = Tweet::loadAllTweetsByUserId($connection, 3);
+      $allTweets = Tweet::loadAllTweetsByUserId($connection, $_SESSION['userID']);
 
       $reverseTweets = array_reverse($allTweets);
 
