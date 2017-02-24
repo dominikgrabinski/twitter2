@@ -2,9 +2,16 @@
 
 require 'Tweet.php';
 require 'config.php';
+session_start();
 
-$oneTweet = Tweet::loadTweetById($connection, 50);
 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+$tweetId = $_POST['tweetIdTake'];
+//var_dump($tweetId);
+
+$oneTweet = Tweet::loadTweetById($connection, $tweetId);
+//var_dump($oneTweet);
 $id = $oneTweet->getUserId();
 
 $sql = "SELECT * FROM Users WHERE id=$id";
@@ -19,3 +26,5 @@ echo '<table border="1px" style="width:100%">
           <th>Comments: </th>
     </tr>
         </table>';
+
+}

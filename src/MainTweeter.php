@@ -52,9 +52,9 @@ require 'config.php';
           <th>Email: '.$row['email'].'</th>
           <th>Tweet: '.$value->getText().'</th> 
           <th>Data powstania tweetu: '.$value->getCreationDate().'</th>
-          <th>Zobacz tweeta:        <form action="oneTwitt.php" method="POST">
+          <th>Zobacz tweeta: <form action="oneTwitt.php" method="POST">
         
-        <input type="submit" value="Kliknij">
+        <input type="submit" name="tweetIdTake" value="'.$value->getId().'">
         </form> </th>
         </tr>';
         
