@@ -31,7 +31,7 @@ require 'config.php';
 </ul>
         
         <form action="addTwitt.php" method="POST">
-        <textarea name= "tweet" ></textarea>
+            <textarea placeholder="Pisz tweeta max 160 znaków" name= "tweet" ></textarea>
         <input type="submit" value="Wyślij tweeta">
         </form>
         
@@ -47,16 +47,31 @@ require 'config.php';
           $sql = "SELECT email, username From Users WHERE id = $id";
           $result = $connection->query($sql);
           $row = $result->fetch_assoc();  
-        echo '<tr>
-          <th>Name: '.$row['username'].'</th>
-          <th>Email: '.$row['email'].'</th>
-          <th>Tweet: '.$value->getText().'</th> 
-          <th>Data powstania tweetu: '.$value->getCreationDate().'</th>
-          <th>Zobacz tweeta: <form action="oneTwitt.php" method="POST">
+        echo '
+            <tr>
+                <table border="1px" width="100%"><tr>
+                <th>Name: '.$row['username'].'</th>
+                <th>Email: '.$row['email'].'</th>
+                <th>Tweet: '.$value->getText().'</th> 
+                <th>Data powstania tweetu: '.$value->getCreationDate().'</th>
+                <th>
+                    <form action="oneTwitt.php" method="POST">
+                      <input type="hidden" name="tweetIdTake" value="'.$value->getId().'">
+                      <input type="submit" value="Zobacz Tweeta">    
+                  </form> 
+                </th>
         
-        <input type="submit" name="tweetIdTake" value="'.$value->getId().'">
-        </form> </th>
-        </tr>';
+            </tr>
+            <tr>
+                <td scope="row" colspan="5">Komencik: 
+                <form action="oneComment.php" method="POST">
+                    <textarea placeholder="Napisz komentarz max 60 znaków"></textarea>
+                        <input type="submit" name="oneComment" value="dodaj komentarz">
+                </form>
+                </td>
+                </tr></table>
+            </tr>
+        ';
         
       }    
   ?>
