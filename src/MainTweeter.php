@@ -64,9 +64,11 @@ require 'config.php';
             </tr>
             <tr>
                 <td scope="row" colspan="5">Komencik: 
-                <form action="oneComment.php" method="POST">
+                <form action="addComment.php" method="POST">
                     <textarea placeholder="Napisz komentarz max 60 znaków"></textarea>
-                        <input type="submit" name="oneComment" value="dodaj komentarz">
+                        <input type="hidden" name="addComment" value="'.$value->getId().'">
+                        <input type="submit" value="dodaj komentarz">
+                        
                 </form>
                 </td>
                 </tr></table>

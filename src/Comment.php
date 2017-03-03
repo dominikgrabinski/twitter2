@@ -132,7 +132,7 @@ class Comment {
 
 //var_dump(Comment::loadAllCommentsByPostId($connection, 1));
 
-var_dump(Comment::loadCommentById($connection, 3));
+//var_dump(Comment::loadCommentById($connection, 3));
 
 //$com2 = new Comment();
 //
