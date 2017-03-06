@@ -2,6 +2,7 @@
 require 'User.php';
 require 'Tweet.php';
 require 'config.php';
+require 'Comment.php';
 
 
 
@@ -49,7 +50,7 @@ require 'config.php';
           $row = $result->fetch_assoc();  
         echo '
             <tr>
-                <table border="1px" width="100%"><tr>
+                <table border="3px" width="100%"><tr>
                 <th>Name: '.$row['username'].'</th>
                 <th>Email: '.$row['email'].'</th>
                 <th>Tweet: '.$value->getText().'</th> 
@@ -65,8 +66,9 @@ require 'config.php';
             <tr>
                 <td scope="row" colspan="5">Komencik: 
                 <form action="addComment.php" method="POST">
-                    <textarea placeholder="Napisz komentarz max 60 znaków"></textarea>
-                        <input type="hidden" name="addComment" value="'.$value->getId().'">
+                    
+                        <input type="text" name="comment">
+                        <input type="hidden" name="postId" value="'.$value->getId().'">
                         <input type="submit" value="dodaj komentarz">
                         
                 </form>
@@ -74,7 +76,24 @@ require 'config.php';
                 </tr></table>
             </tr>
         ';
-        
+        $allComments = Comment::loadAllCommentsByPostId($connection, $value->getId());
+        $allCommentsNew = array_reverse($allComments);
+      // var_dump($allCommentsNew); 
+       
+       for($i = 0; $i<count($allCommentsNew); $i++){
+           $userId = $allCommentsNew[$i]->getUserId();
+           $sql2 = "SELECT id, email, username FROM Users WHERE id=$userId";
+           $result2 = $connection->query($sql2);
+           $row2 = $result2->fetch_assoc();
+           
+           echo '<table border="1px" color="green" width="100%"><tr>
+               
+                    <td> Od: '.$row2['username'].'</td>
+                    <td> Data: '.$allCommentsNew[$i]->getCreationDate().'</td>
+                    <td> Komentarz: '. $allCommentsNew[$i]->getText().'</td>
+           
+                </tr></table>';
+       }
       }    
   ?>
 </table>
