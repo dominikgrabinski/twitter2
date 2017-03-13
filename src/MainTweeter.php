@@ -26,7 +26,7 @@ require 'Comment.php';
         ?> 
           </a></li>
           <li><a href="UserMainPage.php">Twoje Tweety</a></li>
-  <li><a href="contact.asp">Contact</a></li>
+  <li><a href="UserEdit.php">Edytuj profil</a></li>
   <li><a href="about.asp">About</a></li>
   <li><a href="logout.php">Wyloguj</a></li>
 </ul>

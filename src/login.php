@@ -21,6 +21,7 @@ session_start();
             $_SESSION['userID'] = $row['id'];
             $_SESSION['userName'] = $row['username'];
             $_SESSION['email'] = $row['email'];
+            //$_SESSION['password'] = $row['hashed_password'];
             echo "Trwa przekierowanie na strone główna";
             header( "refresh:1;url=MainTweeter.php" );
           }
@@ -43,25 +44,7 @@ session_start();
   
   
   
-  
-//session_start();
-//
-//if((!empty($_POST['userName'])) || (!empty($_POST['hashedPassword']))){
-//    $user = new User();
-//    $pass = $user->setHashedPassword($_POST['hashedPassword']);
-//    //var_dump($_POST['userName']);
-//    //var_dump($_POST['hashedPassword']);
-//    $sql = "SELECT COUNT(*) as ilosc FROM Users WHERE username='".$_POST['userName']."' AND hashed_password='$pass'";
-//   $result = $connection->query($sql);
-//      $row = $result->fetch_assoc();
-////      var_dump($row);
-////      var_dump($result);
-//    if($row['ilosc'] == 1){
-//        $_SESSION['userId'] = $_POST['userName'];
-//        echo "Przekierowanie do strony głównej";
-//        header('Location: MainTweeter.php');
-//    }
-//}
+
 ?>
 <html>
     <head>
