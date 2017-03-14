@@ -7,14 +7,16 @@ class Message {
     private $userId;
     private $creationDate;
     private $text;
-    private $messageId;
+    private $messageFrom;
+    private $readed;
     
     public function __construct() {
         $this->id = -1;
         $this->userId = "";
         $this->text = "";
         $this->creationDate = "";
-        $this->messageId = "";
+        $this->messageFrom = "";
+        $this->readed = "";
     }
     
     public function getId(){
@@ -45,18 +47,26 @@ class Message {
         return $this->creationDate;
     }
     
-    public function setMessageId($messageId){
-        $this->messageId= $messageId;
+    public function setMessageFrom($messageId){
+        $this->messageFrom= $messageId;
     }
     
-    public function getMessageId(){
-        return $this->messageId;
-    } 
+    public function getMessageFrom(){
+        return $this->messageFrom;
+    }
+    
+    public function setReaded($readed){
+        $this->readed = $readed;
+    }
+    
+    public function getReaded(){
+        return $this->readed;
+    }    
     
     public function saveToDB(mysqli $connection){
         
         if($this->id == -1){
-            $sql = "INSERT INTO Message(userId, creationDate, text, messageId) VALUES('$this->userId', '$this->creationDate', '$this->text', '$this->messageId')";
+            $sql = "INSERT INTO Message(userId, creationDate, text, messageFrom, readed) VALUES('$this->userId', '$this->creationDate', '$this->text', '$this->messageFrom', '$this->readed')";
             
             $result = $connection->query($sql);
             $this->id = $connection->insert_id;
@@ -77,7 +87,8 @@ class Message {
             $loadMessage->userId = $row['userId'];
             $loadMessage->creationDate = $row['creationDate'];
             $loadMessage->text = $row['text'];
-            $loadMessage->messageId = $row['messageId'];
+            $loadMessage->messageFrom = $row['messageFrom'];
+            $loadMessage->readed = $row['readed'];
             
             $ret[] = $loadMessage;
             }            
