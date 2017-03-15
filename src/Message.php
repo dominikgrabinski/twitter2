@@ -16,7 +16,7 @@ class Message {
         $this->text = "";
         $this->creationDate = "";
         $this->messageFrom = "";
-        $this->readed = "";
+        $this->readed = 1;
     }
     
     public function getId(){
@@ -72,6 +72,9 @@ class Message {
             $this->id = $connection->insert_id;
             return $result == true;
             
+        }else{
+            $sql = "UPDATE Message SET readed=$this->readed WHERE id=$this->id";
+            $result = $connection->query($sql);
         }
     }
     
@@ -94,7 +97,26 @@ class Message {
             }            
         }
         return $ret;
-    }   
+    }  
+    
+    static public function loadMessageById(mysqli $connection, $id){
+        $sql = "SELECT * FROM Message WHERE id=$id";
+        
+        $result = $connection->query($sql);
+        if ($result == TRUE && $result->num_rows !=0){
+            foreach ($result as $row){
+                $oMessage = new Message();
+                $oMessage->userId = $row['userId'];
+                $oMessage->messageFrom = $row['messageFrom'];
+                $oMessage->text = $row['text'];
+                $oMessage->creationDate = $row['creationDate'];
+                $oMessage->id = $row['id'];
+            
+                return $oMessage;
+            }
+        }
+        return null;
+    }
     
 }
 
@@ -106,6 +128,6 @@ class Message {
 //
 //$oMassage->saveToDB($connection);
 
-//$checkMessage = Message::loadMessageByUserId($connection, 19);
+//$checkMessage = Message::loadMessageById($connection, 13);
 //var_dump($checkMessage);
 

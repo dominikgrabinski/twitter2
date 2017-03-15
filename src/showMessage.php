@@ -26,23 +26,10 @@ and open the template in the editor.
                 <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <form method="POST">
-            <textarea cols="100" name="message" placeholder="Wpisz wiadomość"></textarea>
-                Wybierz użytkownika: 
-            <select name="userId">
-                <?php
-                   $allUsers = User::loadAllUsers($connection); 
-                        foreach ($allUsers as $selectUser){
-                            echo '<option value='.$selectUser->getId().'>'.$selectUser->getUserName().'</options>';
 
-                        }
-                ?>
-            </select>
-            <input value="Wyślij wiadomość" type="submit">
-            
-        </form>
+
         
-        <a href="MainTweeter.php">Powrót do strony głównej</a>
+        <a href="MainTweeter.php">Powrót do strony głównej</a><br>
     </body>
 </html>
 
@@ -50,37 +37,46 @@ and open the template in the editor.
 
 <?php
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $oMessage = new Message;
-        $oMessage->setUserId($_POST['userId']);
-        $oMessage->setText($_POST['message']);
-        $oMessage->setCreationDate();
-        $oMessage->setReaded(1);
-        $oMessage->setMessageFrom($_SESSION['userID']);
-        
-        $oMessage->saveToDB($connection);
-        
-        echo '<div class="send"> Wiadomość wysłana </div>';
-        
-        header('refresh:2; url=showMessage.php');
-    }
+//    $allMessage = Message::loadMessageByUserId($connection, $_SESSION['userID']);
+//   
+//    foreach ($allMessage as $value){
+// 
+//    echo '<tr>   
+//            <table border="2px" width="100%">
+//                <th> ID użytkownika: '.$value->getUserId().'</th>
+//                <th> Treść: '.$value->getText().'</th>
+//                <th> Data: '.$value->getCreationDate().'</th>  
+//                <th>  '.$value->getReaded().'</th>    
+//
+//
+//            </table>
+//          </tr>
+//          '; 
+//    }
 
+if(!empty($_GET['id']))
+{
+    $msg1 = Message::loadMessageById($connection, $_GET['id']);
+    $msg1->setReaded(0);
+    $msg1->saveToDB($connection);
+}
 
-    $allMessage = Message::loadMessageByUserId($connection, $_SESSION['userID']);
-   
-    foreach ($allMessage as $value){
- 
-    echo '<tr>   
-            <table border="2px" width="100%">
-                <th> ID użytkownika: '.$value->getUserId().'</th>
-                <th> Treść: '.$value->getText().'</th>
-                <th> Data: '.$value->getCreationDate().'</th>    
+$msg = Message::loadMessageByUserId($connection,$_SESSION['userID']);
 
+foreach ($msg as $value)
+{
+  echo "<tr>";
+  echo        '<table border="2px" width="100%">';
+ // echo "<th>".$value->getUserId()."</th>";
+  if($value->getReaded() == 1)
+     echo "<th><a href='showMessage.php?id=".$value->getId()."'>".$value->getText()."</th>";
+  else
+      echo "<th>".$value->getText()."</th>";
+  echo "<th>".$value->getCreationDate()."</th>";
 
-            </table>
-          </tr>
-          '; 
-    }
+}
+echo "</table>";
+  echo "</tr><br>";
 }
 ?>
 
