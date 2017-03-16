@@ -47,20 +47,16 @@ class User {
         $newHashedPassword = $newPassword;
         return $this->hashedPassword = $newHashedPassword;
     }
-    /**
-     * Funkcja sprawdzająca poprawność hasła
-     * 
-     * @return bool Czy hasło poprawne
-     */
+
     public function checkHashedPassword($passwordToCheck){
         if(password_verify($passwordToCheck, $this->hashedPassword)){
 
             return true;
  
         }else{
- 
+            
             return false;
-
+            
         }
     }
     
@@ -121,14 +117,14 @@ class User {
                 $loadedUser->email = $row['email'];
                 
                 $ret[] = $loadedUser;
-                
-                
+    
             }
         }
         return $ret;
     }
     
     public function delete(mysqli $connection){
+        
         if($this->id != -1){
             $sql = "DELETE FROM Users WHERE id=$this->id";
             $result = $connection->query($sql);
@@ -142,33 +138,6 @@ class User {
     }
     
 }
-
-//$User1 = new User();
-//
-//$User1->setEmail('ania@mail.com');
-//$User1->setHashedPassword('ania');
-//$User1->setUserName('ania');
-//
-//$User1->saveToDB($connection);
-
-
-//$changeUserId1 = User::loadUserById($connection, 1);
-////$changeUserId1->getUserName();
-//$changeUserId1->setUserName('dominiczek');
-//$changeUserId1->saveToDB($connection);
-//
-//var_dump(User::loadUserById($connection, 1));
-
-//$deleteUser = User::loadUserById($connection, 2);
-//$deleteUser->delete($connection);
-//var_dump($deleteUser);
-
-
-
-
-
-
-//var_dump(User::loadAllUsers($connection));
 
 
 
