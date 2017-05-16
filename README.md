@@ -1,17 +1,18 @@
 # twitter
-program Twitter:
+simple Twitter program:
 
-4 klasy:
+4 Class:
 - User
 - Comment
 - Message
 - Tweet
 
-Program daje możliwość:
+This program allows:
 
-- logowania się bądź rejestracja nowego użytkownika
-- edycji użytkownika
-- wysyłania wiadomości do innych użytkowników
-- wyświetlanie Tweetów danego użytkownika
-- wyświetlania wszystkich Tweetów na stronie głównej wraz z komentarzami
+- log or register new User 
+- edit exsist User
+- send message to another User
+- show all Tweets from all Users on main page
+- show all Tweets from one User
+
 
