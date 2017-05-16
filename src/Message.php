@@ -111,10 +111,13 @@ class Message {
                 $oMessage->text = $row['text'];
                 $oMessage->creationDate = $row['creationDate'];
                 $oMessage->id = $row['id'];
-            
+                
+                echo "ok";
                 return $oMessage;
+                
             }
         }
+        echo "dupa";
         return null;
     }
     
